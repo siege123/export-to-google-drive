@@ -1,22 +1,17 @@
 <?php
     include_once '/home/codeninja/Desktop/cj.com/vendor/autoload.php';
 
-    $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] ;
+    $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/users/saveTo';
     $client = new Google_Client();
-    $client->useApplicationDefaultCredentials();
     $client->setAuthConfig('/home/codeninja/Desktop/cj.com/client_secret.json');
     $client->setRedirectUri($redirect_uri);
     $client->addScope("https://www.googleapis.com/auth/drive");
     $service = new Google_Service_Drive($client);
-    // add "?logout" to the URL to remove a token from the session
-    if (isset($_REQUEST['logout'])) {
-      unset($_SESSION['upload_token']);
-      $client->revokeToken();
-    }
+    $client->setIncludeGrantedScopes(true);
     
     
-    if (isset($_GET['code'])) {
-      $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    if (isset($_REQUEST['code'])) {
+      $token = $client->fetchAccessTokenWithAuthCode($_REQUEST['code']);
       $client->setAccessToken($token);
       // store in the session also
       $_SESSION['upload_token'] = $token;
@@ -30,9 +25,10 @@
         unset($_SESSION['upload_token']);
         $client->revokeToken();
       }
-    } else {
-      $authUrl = $client->createAuthUrl();
+    }else{
+        $authUrl = $client->createAuthUrl();
     }
+
     /************************************************
      * If we're signed in then lets try to upload our
      * file. For larger files, see fileupload.php.
@@ -52,8 +48,6 @@
           'mimeType' => 'application/vnd.ms-excel',
         ));
         
-        
-
     } catch (Exception $e) {
         print "An error occurred: " . $e->getMessage();
       } 
@@ -110,7 +104,7 @@
         echo '<button>';
         echo anchor('http://www.cj.com/users', 'Back');
         echo '</button>';
-
+        
         ?>
         
     </div>

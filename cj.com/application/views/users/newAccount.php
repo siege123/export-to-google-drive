@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
     <body>
         <div id="login">
-            <form action="/users/save" method="POST" style="color: wheat">
+            <form action="save/" method="POST" style="color: wheat">
                 Name: &nbsp;&nbsp;&nbsp;<input type="text" name="name" style="padding-right: 10px"> <br><br>
                 Address: <input type="text" name="address" style="padding-right: 6px"> <br><br>
             <input type="submit" value="Submit">

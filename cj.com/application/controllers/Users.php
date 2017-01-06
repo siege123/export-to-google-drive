@@ -33,7 +33,7 @@ class Users extends CI_Controller {
 
         $this->Users_db->insert_account($data['newAccount']);
 
-        redirect("/users/");
+        redirect("users/");
 
     }
 
