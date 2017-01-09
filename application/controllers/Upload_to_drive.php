@@ -41,7 +41,7 @@ class Upload_to_drive extends CI_Controller{
             $filename = $this->input->post('nameOfFile');
             
             if(empty($filename)){
-                $filename = 'test';
+                $filename = 'sample';
             }
             
             $this->uploadFile($filename, $client);
