@@ -44,7 +44,8 @@ class Upload_to_drive extends CI_Controller{
                 $filename = 'sample';
             }
             
-            $this->uploadFile($filename, $client);
+            echo $code; die();
+            //$this->uploadFile($filename, $client);
             
         }
         
@@ -78,7 +79,7 @@ class Upload_to_drive extends CI_Controller{
                 'mimeType' => 'application/vnd.ms-excel',
             ));
             
-            $this->load->view('users/uploadSuccess');
+            $this->load->view('users');
         
         } catch (Exception $e) {
             print "An error occurred: " . $e->getMessage();

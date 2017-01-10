@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/codeninja/Desktop/cj.com/css/style.css</file>
             <file>file:/home/codeninja/Desktop/cj.com/application/views/users/save.php</file>
-            <file>file:/home/codeninja/Desktop/cj.com/application/views/users/newAccount.php</file>
-            <file>file:/home/codeninja/Desktop/cj.com/application/controllers/Main.php</file>
+            <file>file:/home/codeninja/Desktop/cj.com/application/controllers/Upload_to_drive.php</file>
+            <file>file:/home/codeninja/Desktop/cj.com/application/views/users/save2.php</file>
             <file>file:/home/codeninja/Desktop/cj.com/application/controllers/Users.php</file>
+            <file>file:/home/codeninja/Desktop/cj.com/application/views/users/updateAccount.php</file>
             <file>file:/home/codeninja/Desktop/cj.com/application/views/users/accounts.php</file>
-            <file>file:/home/codeninja/Desktop/cj.com/application/views/pages/quickstart.php</file>
+            <file>file:/home/codeninja/Desktop/cj.com/application/views/users/uploadSuccess.php</file>
         </group>
     </open-files>
 </project-private>

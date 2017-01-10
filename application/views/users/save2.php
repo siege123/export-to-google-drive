@@ -36,7 +36,7 @@
                 echo form_label('Filename: ', 'name');
                 echo form_input($data);
                 echo "</br>"; echo "</br>";
-                echo form_submit('upload', 'Upload to Google Drive');
+                echo form_submit('upload', 'Upload file');
                 echo form_close();
             }
         ?>
