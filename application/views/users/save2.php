@@ -16,30 +16,7 @@
     <body>
         
     <div class="box">
-        <?php
-            
-            if(isset($accessToken)){
-                echo 'Your Files are now uploading...';
-                sleep(5);
-                redirect('upload_to_drive/uploadFile/' . $data);
-            }else{
-                
-                $data = array(
-                    'name'          =>  'nameOfFile',
-                    'maxlegth'      =>  '10',
-                    'placeholder'   =>  'Insert Filename Here',
-                    'style'         =>  'color: black'
-                 );
-                
-                echo "</br>"; echo "</br>";
-                echo form_open('upload_to_drive/auth');
-                echo form_label('Filename: ', 'name');
-                echo form_input($data);
-                echo "</br>"; echo "</br>";
-                echo form_submit('upload', 'Upload file');
-                echo form_close();
-            }
-        ?>
+        
     </div>
     </body>
 </html>

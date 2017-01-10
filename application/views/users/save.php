@@ -91,9 +91,10 @@
         
         echo '</br>';echo '</br>';
         
-        echo '<button>';
-        echo anchor('http://www.cj.com/upload_to_drive', 'Upload to Drive');
-        echo '</button>';
+        echo form_open('upload_to_drive'); ?>
+        <input type="submit" value="Upload to Google Drive" name="submit"/>        
+    <?php
+        echo form_close();
         
         echo '</br>';echo '</br>';
         

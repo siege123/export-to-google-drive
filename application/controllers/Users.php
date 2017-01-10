@@ -33,7 +33,7 @@ class Users extends CI_Controller {
 
         $this->Users_db->insert_account($data['newAccount']);
 
-        redirect("users");
+        redirect("users/");
 
     }
 
@@ -72,6 +72,7 @@ class Users extends CI_Controller {
     
     //EXPORT TO EXCEL
     //HAS 3 CATEGORIES NAMELY: READ, DL, UP OR (READ, DOWNLOAD AND UPLOAD)
+    //$VALIDATION IS USED FOR THAT
     public function generateExcel($validation){
         //FIRST GENERATE THE EXCEL USING PHPExcel
         $this->load->library('Excel');
@@ -118,12 +119,12 @@ class Users extends CI_Controller {
         }else if($validation == 'dl'){
             
             //SPECIFY HEADERS AND THE DIRECTORY WHERE TO SAVE THE EXCEL FILE
-            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment;filename='.$filename);
             header('Cache-Control: max-age=0');
         
             $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');  
-            $objWriter->save('/home/codeninja/Desktop/cj.com/'.$filename);            
+            $objWriter->save('php://output');            
         }
                 
     }
@@ -137,7 +138,7 @@ class Users extends CI_Controller {
     function readFile($filename){
         $url = '/home/codeninja/Desktop/cj.com/'.$filename;        
         
-        $objReader = PHPExcel_IOFactory::createReader('Excel5');
+        $objReader = PHPExcel_IOFactory::createReader('Excel2007');
         $objPHPExcel = $objReader->load($url);
         $objWorksheet = $objPHPExcel->getActiveSheet();
         echo '<table>' . "\n";

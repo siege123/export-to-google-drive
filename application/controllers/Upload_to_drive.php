@@ -14,38 +14,23 @@ class Upload_to_drive extends CI_Controller{
     }
     
     public function index(){
-        $this->load->helper('form');
-        $this->load->view('users/save2');
-    }
-    
-    public function auth(){
         $this->load->library('session');
         $this->load->helper('form');
         
-        $redirect_uri = 'http://www.cj.com' . '/upload_to_drive/auth';
+        $redirect_uri = 'http://www.cj.com' . '/upload_to_drive';
         $client = new Google_Client();
         $client->setAuthConfig('/home/codeninja/Desktop/cj.com/client_secret.json');
         $client->setRedirectUri($redirect_uri);
         $client->addScope("https://www.googleapis.com/auth/drive");
         
-        $code = $this->input->post_get('code');
+        //$code = $this->input->post_get('code');
         
-        if(isset($code)){
-            $token = $client->fetchAccessTokenWithAuthCode($code);
+        if(isset($_REQUEST['code'])){
+            $token = $client->fetchAccessTokenWithAuthCode($_REQUEST['code']);
             $client->setAccessToken($token);
             
             $this->session->set_userdata('upload_token');
-            
-            $data['accessToken'] = $client->getAccessToken();            
-            
-            $filename = $this->input->post('nameOfFile');
-            
-            if(empty($filename)){
-                $filename = 'sample';
-            }
-            
-            echo $code; die();
-            //$this->uploadFile($filename, $client);
+            $this->uploadFile($client);
             
         }
         
@@ -61,12 +46,12 @@ class Upload_to_drive extends CI_Controller{
         }
     }
     
-    public function uploadFile($filename, $client){
+    public function uploadFile($client){
         $this->load->helper('form');
         $file = new Google_Service_Drive_DriveFile();
         $service = new Google_Service_Drive($client);
         
-        $file->setName($filename);
+        $file->setName('Untitled');
         $file->setMimeType('application/vnd.ms-excel');
         $file->setDescription('test document');        
         
@@ -78,12 +63,12 @@ class Upload_to_drive extends CI_Controller{
                 'data' => $data,
                 'mimeType' => 'application/vnd.ms-excel',
             ));
-            
-            $this->load->view('users');
         
+            
         } catch (Exception $e) {
             print "An error occurred: " . $e->getMessage();
-        } 
+        }
+        redirect('users');
     }
 
 }
