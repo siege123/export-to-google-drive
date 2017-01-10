@@ -15,34 +15,48 @@ class Upload_to_drive extends CI_Controller{
     
     public function index(){
         $this->load->library('session');
-        $this->load->helper('form');
+        $this->load->helper('form','url');
         
         $redirect_uri = 'http://www.cj.com' . '/upload_to_drive';
         $client = new Google_Client();
         $client->setAuthConfig('/home/codeninja/Desktop/cj.com/client_secret.json');
         $client->setRedirectUri($redirect_uri);
-        $client->addScope("https://www.googleapis.com/auth/drive");
+        $client->addScope("https://www.googleapis.com/auth/drive");      
         
-        //$code = $this->input->post_get('code');
-        
-        if(isset($_REQUEST['code'])){
-            $token = $client->fetchAccessTokenWithAuthCode($_REQUEST['code']);
-            $client->setAccessToken($token);
-            
-            $this->session->set_userdata('upload_token');
-            $this->uploadFile($client);
-            
+        try{
+            if(isset($_REQUEST['code'])){
+                $token = $client->fetchAccessTokenWithAuthCode($_REQUEST['code']);
+                $client->setAccessToken($token);
+
+                $this->session->set_userdata('upload_token');
+                $this->uploadFile($client);
+
+            }
+        }catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
         }
         
-        if(!empty($this->session->upload_token)){
-            $client->setAccessToken($this->session->upload_token);
-            
-            if($client->isAccessTokenExpired()){
-                $this->session->unset_userdata('upload_token');
+        
+        if(isset($_GET['error'])){
+            redirect('error');            
+        }              
+        
+        try{
+            if(!empty($this->session->upload_token)){
+                $client->setAccessToken($_REQUEST['code']);
+
+                if($client->isAccessTokenExpired()){
+                    $refreshToken = $client->refreshToken($_REQUEST['code']);
+                    $this->session->unset_userdata('upload_token');                    
+                    $client->setAccessToken($refreshToken);
+                }
+
+            }else{
+                redirect($client->createAuthUrl());
             }
-            
-        }else{
-            redirect($client->createAuthUrl());
+        
+        }catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
         }
     }
     
