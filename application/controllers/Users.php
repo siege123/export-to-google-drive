@@ -8,6 +8,8 @@ class Users extends CI_Controller {
     public function __construct() {
         parent::__construct();
     }
+    
+    //load accounts
     public function index()
     {
         $this->load->helper('form');
@@ -16,11 +18,13 @@ class Users extends CI_Controller {
         $this->load->view('users/accounts', $data);
 
     }
+    
+    //create new account
     public function create(){
         $this->load->view('users/newAccount');
     }
     
-    //INSERT DATA TO DATABASE
+    //insert account to database
     public function save(){
 
         $name = $this->input->post('name');
@@ -37,14 +41,14 @@ class Users extends CI_Controller {
 
     }
 
-    //DELETE DATA FROM THE DATABASE
+    //delete account 
     public function delete($id){
         $this->load->model('Users_db');
         $this->Users_db->delete_account($id);
         redirect("/users/");
     }
 
-    //LOAD NEW INSERTED DATA
+    //load new inserted data
     public function info($id, $name, $address){
         $data['name'] = $name;
         $data['address'] = $address;
@@ -52,7 +56,7 @@ class Users extends CI_Controller {
         $this->load->view('users/updateAccount', $data);    
     }
     
-    //UPDATE DATA
+    //update account
     public function update(){
         $name = $this->input->post('name');
         $address = $this->input->post('address');
@@ -70,9 +74,7 @@ class Users extends CI_Controller {
         redirect("/users/");
     }
     
-    //EXPORT TO EXCEL
-    //HAS 3 CATEGORIES NAMELY: READ, DL, UP OR (READ, DOWNLOAD AND UPLOAD)
-    //$VALIDATION IS USED FOR THAT
+
     public function generateExcel($validation){
         //FIRST GENERATE THE EXCEL USING PHPExcel
         $this->load->library('Excel');
@@ -111,7 +113,7 @@ class Users extends CI_Controller {
         $filename = 'accountInfo.xls';
         
         
-        //CATEGORIES
+        //read file or download
         if($validation == 'read'){
             //REDIRECT TO ANOTHER FUNCTION
             $this->readFile($filename);
@@ -128,6 +130,7 @@ class Users extends CI_Controller {
         }
                 
     }
+    
     
     function saveTo(){
         
@@ -162,7 +165,7 @@ class Users extends CI_Controller {
         echo '}';
         echo '</script>';
     
-        echo '<style>';
+        echo '<style>'; 
         echo 'body {';
              echo 'background: #2c3338;';
              echo 'color: #ffffff;';
@@ -172,6 +175,11 @@ class Users extends CI_Controller {
         echo '</style>';
         
         
+    }
+    
+    //amp test
+    public function amp(){
+        $this->load->view('users/ampTest');
     }
       
 }

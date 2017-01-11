@@ -1,1 +1,11 @@
-{"elements":{},"attributes":{"onreadystatechange":{"context":"script"}}}
+{
+    "elements": {},
+    "attributes": {
+        "onreadystatechange": {
+            "context": "script"
+        },
+        "amp": {
+            "context": "html"
+        }
+    }
+}
