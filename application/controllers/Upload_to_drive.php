@@ -52,6 +52,7 @@ class Upload_to_drive extends CI_Controller{
                 }
 
             }else{
+                
                 redirect($client->createAuthUrl());
             }
         

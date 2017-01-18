@@ -17,7 +17,7 @@
     </head>
     
     <div id="login">
-      <form name='form-login' action="/login/validate" method="POST">
+        <form name='form-login' action=<?php dirname(__DIR__)?>"/login/validate" method="POST">
         <span class="fontawesome-user"></span>
           <input type="text" name="name" placeholder="Username">
        
