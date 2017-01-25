@@ -132,7 +132,7 @@ class Upload_to_drive extends CI_Controller{
                 $refreshToken = json_encode($tokenData);
                 $client->setAccessToken($refreshToken);
                 //$this->Google_token_db->updateAccessToken($clientid, $userId, $token);                                        $
-            }            
+            }                     
             $this->session->set_userdata('googleStatus', 'Success');
             $this->uploadFile($client);
    
